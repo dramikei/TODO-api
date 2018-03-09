@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost:27017/TodoApp');
 
 var saveToDb = (todo) => {
   todo.save().then((doc) => {
-    console.log('Saved Document', doc)
+    console.log('Saved', doc)
   }, (e) => {
     console.log('err while saving', e)
   });
@@ -17,13 +17,18 @@ var saveToDb = (todo) => {
 
 var Todo = mongoose.model('Todo', {
   text: {
-    type: String
+    type: String,
+    required: true,
+    minlength: 1,
+    trim: true
   },
   completed: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   completedAt: {
-    type: Number
+    type: Number,
+    default: null
   }
 });
 var newTodo = new Todo({
@@ -39,3 +44,19 @@ var todo2 = new Todo({
 });
 
 saveToDb(todo2);
+
+
+var User = mongoose.model('Users', {
+  email: {
+    type: String,
+    required: true,
+    minlength: 2,
+    trim: true
+  }
+});
+
+
+var newUser = new User({
+  email: 'raghav2011rv@gmail.com'
+});
+saveToDb(newUser);
