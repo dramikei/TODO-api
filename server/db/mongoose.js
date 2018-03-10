@@ -7,8 +7,9 @@ module.exports = {mongoose};
 var saveToDb = (model, res) => {
   model.save().then((doc) => {
     res.send(doc);
-  }, (e) => {
+  }).catch((e) => {
     res.status(400).send(e);
-  });
+  })
 };
+
 module.exports = {saveToDb};
