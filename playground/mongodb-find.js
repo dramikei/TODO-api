@@ -29,5 +29,3 @@ db.collection('Users').find({name: 'Raghav Vashisht'}).toArray().then((docs) => 
 })
   // db.close();
 });
-var calc = prompt('type 1 for...')
-if(calc ==)
