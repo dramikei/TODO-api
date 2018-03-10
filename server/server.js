@@ -6,8 +6,8 @@ const {ObjectID} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
+var {authenticate} = require('./middleware/authenticate');
 var {saveToDb} = require('./db/mongoose');
-var {saveUserToDb} = require('./db/mongoose');
 //
 var app = express();
 const port = process.env.PORT || 3000;
@@ -80,23 +80,6 @@ app.patch('/todos/:id', (req,res) => {
   });
 });
 //Post /users
-
-// app.post('/users', (req,res) => {
-//   var body = _.pick(req.body, ['email', 'password']);
-//   console.log(body);
-//   var user = new User(body);
-//
-//
-//   user.save().then(() => {
-//     return user.generateAuthToken();
-//   }).then((token) => {
-//     res.header('x-auth', token).send(user);
-//   }).catch((e) => {
-//     console.log(e);
-//     res.status(400).send(e);
-//   })
-// });
-
 app.post('/users', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
   var user = new User(body);
@@ -109,6 +92,12 @@ app.post('/users', (req, res) => {
     res.status(400).send(e);
   })
 });
+
+
+
+app.get('/users/me',authenticate, (req,res) => {
+  res.send(req.user);
+})
 
 app.listen(port, () => {
   console.log(`Started on port ${port}.`);
