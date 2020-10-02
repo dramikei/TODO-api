@@ -18,7 +18,7 @@ beforeEach((done) => {
 
 describe('POST /todos', () => {
   it('Should create a new todo', (done) => {
-    var text = 'test todo text';
+    const text = 'test todo text';
     request(app).post('/todos').send({text}).expect(200).expect((res) => {
       expect(res.body.text).toBe(text);
     }).end((err, res) => {
