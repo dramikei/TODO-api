@@ -1,7 +1,7 @@
 const {ObjectID} = require('mongodb');
 const {mongoose} = require('./../server/db/mongoose');
 const {Todo} = require('./../server/models/todo');
-var id = '5aa25bb8df2e1e1d08bdfd20';
+const id = '5aa25bb8df2e1e1d08bdfd20';
 
 
 // Todo.remove({}).then((result) => {
@@ -12,6 +12,6 @@ var id = '5aa25bb8df2e1e1d08bdfd20';
 //Todo.findOneAndRemove
 //Todo.findByIdAndRemove
 
-Todo.findByIdAndRemove(id).then((todo) => {
+Todo.deleteOne({_id: id}).then((todo) => {
   console.log(todo);
 });
